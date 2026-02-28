@@ -19,6 +19,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to OCI Registry
         id: login-ocir
         uses: oracle-actions/login-ocir@v1.3.0
@@ -38,6 +44,7 @@ jobs:
             -f database/migrations/Dockerfile \
             -t $OCIR_REPOSITORY:$GITHUB_SHA \
             .
+          docker push ghcr.io/${{ github.repository }}/dbmigrator:GITHUB_SHA
           docker push $OCIR_REPOSITORY:$GITHUB_SHA
 
   build-apiserver-image:
@@ -46,6 +53,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to OCI Registry
         id: login-ocir
         uses: oracle-actions/login-ocir@v1.3.0
@@ -65,6 +78,7 @@ jobs:
             -f clomonitor-apiserver/Dockerfile \
             -t $OCIR_REPOSITORY:$GITHUB_SHA \
             .
+          docker push ghcr.io/${{ github.repository }}/apiserver:GITHUB_SHA
           docker push $OCIR_REPOSITORY:$GITHUB_SHA
 
   build-archiver-image:
@@ -73,6 +87,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to OCI Registry
         id: login-ocir
         uses: oracle-actions/login-ocir@v1.3.0
@@ -92,6 +112,7 @@ jobs:
             -f clomonitor-archiver/Dockerfile \
             -t $OCIR_REPOSITORY:$GITHUB_SHA \
             .
+          docker push ghcr.io/${{ github.repository }}/archiver:GITHUB_SHA
           docker push $OCIR_REPOSITORY:$GITHUB_SHA
 
   build-linter-image:
@@ -127,6 +148,7 @@ jobs:
             -t $OCIR_REPOSITORY:$GITHUB_SHA \
             .
           docker push ghcr.io/${{ github.repository }}/linter:latest
+          docker push ghcr.io/${{ github.repository }}/linter:GITHUB_SHA
           docker push $OCIR_REPOSITORY:$GITHUB_SHA
 
   build-notifier-image:
@@ -135,6 +157,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to OCI Registry
         id: login-ocir
         uses: oracle-actions/login-ocir@v1.3.0
@@ -154,6 +182,7 @@ jobs:
             -f clomonitor-notifier/Dockerfile \
             -t $OCIR_REPOSITORY:$GITHUB_SHA \
             .
+          docker push ghcr.io/${{ github.repository }}/notifier:GITHUB_SHA
           docker push $OCIR_REPOSITORY:$GITHUB_SHA
 
   build-registrar-image:
@@ -162,6 +191,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to OCI Registry
         id: login-ocir
         uses: oracle-actions/login-ocir@v1.3.0
@@ -181,6 +216,7 @@ jobs:
             -f clomonitor-registrar/Dockerfile \
             -t $OCIR_REPOSITORY:$GITHUB_SHA \
             .
+          docker push ghcr.io/${{ github.repository }}/registrar:GITHUB_SHA
           docker push $OCIR_REPOSITORY:$GITHUB_SHA
 
   build-tracker-image:
@@ -189,6 +225,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to OCI Registry
         id: login-ocir
         uses: oracle-actions/login-ocir@v1.3.0
@@ -208,4 +250,5 @@ jobs:
             -f clomonitor-tracker/Dockerfile \
             -t $OCIR_REPOSITORY:$GITHUB_SHA \
             .
+          docker push ghcr.io/${{ github.repository }}/tracker:GITHUB_SHA
           docker push $OCIR_REPOSITORY:$GITHUB_SHA
