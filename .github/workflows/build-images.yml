@@ -1,4 +1,4 @@
-name: Build and Push omages to dockerhub
+name: Build and Push images to dockerhub
 
 on:
   push:
